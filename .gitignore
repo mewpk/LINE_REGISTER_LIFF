@@ -9,7 +9,7 @@ firebase-debug.*.log*
 
 # Firebase cache
 .firebase/
-.not/
+not
 
 # Firebase config
 
