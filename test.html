@@ -9,15 +9,32 @@
 <body>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-         axios.get("https://sheetdb.io/api/v1/3awnhw9icpyqx").then((res) => {
+        const profile = {
+            userId : "Uf77f9933a7284ef7ba90de55933c8967"
+        }
+          axios.get("https://sheetdb.io/api/v1/3awnhw9icpyqx").then((res) => {
           const dataform = res.data;
-          
+          let match=0;
           for(let i=0 ; i < dataform.length; i+=1){
-            if(dataform[i].userId == "Uf77f9933a7284ef7ba90de55933c8967"){
-                console.log(dataform[i])
+            if(profile.userId == dataform[i].userId){
+                match += 1
             }
           }
-        })
+          if(match == 0){
+            axios.post("https://sheetdb.io/api/v1/3awnhw9icpyqx", {
+                userId: profile.userId,
+                displayName: profile.displayName,
+                pictureUrl: profile.pictureUrl,
+                statusMessage: profile.statusMessage,
+              })
+              .then((result) => {
+                console.log(result);
+              })
+              .catch((err) => {
+                console.error(err);
+              });
+          }
+        } );
 
     </script>
 </body>
