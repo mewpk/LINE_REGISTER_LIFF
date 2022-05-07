@@ -1,108 +1,124 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>REGISTER LIFF</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  </head>
-  <div class="container">
-   
-  
-    <h1>REGISTER LIFF</h1>
-    <img id="pictureUrl" height="50" width="50"/>
-    <button onclick="logOut()" id="btnLogOut" type="button" class="btn btn-danger">LOGOUT</button>
-    <!-------------------------------- form --------------------------------->
-    <form method="post" action="https://sheetdb.io/api/v1/udaqidubl8hb3" id="sheetdb-form">
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Email address</label>
-        <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-      </div>
-      <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input name="password" type="password" class="form-control" id="exampleInputPassword1">
-      </div>
-      <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-      </div>
-      <button  type="submit" class="btn btn-primary">Submit</button>
-    </form>
-  </div>
-    <!-----------------------------javascript ------------------------------->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!-----------------------------LINE LIFF ------------------------------->
-    <script>
-      const pictureUrl = document.getElementById("pictureUrl");
-      function logOut() {
-        liff.logout();
-        window.location.reload();
-      }
-      function logIn() {
-        liff.login({ redirectUri: window.location.href });
-      }
-      async function getUserProfile() {
-        const profile = await liff.getProfile();
-        axios.get("https://sheetdb.io/api/v1/3awnhw9icpyqx").then((res) => {
-          const dataform = res.data;
-          let match=0;
-          for(let i=0 ; i < dataform.length; i+=1){
-            if(profile.userId == dataform[i].userId){
-                match += 1
-            }
-          }
-          if(match == 0){
-            axios.post("https://sheetdb.io/api/v1/3awnhw9icpyqx", {
-                userId: profile.userId,
-                displayName: profile.displayName,
-                pictureUrl: profile.pictureUrl,
-                statusMessage: profile.statusMessage,
-              })
-              .then((result) => {
-                console.log(result);
-              })
-              .catch((err) => {
-                console.error(err);
-              });
-          }
-        } );
 
-        pictureUrl.style.display = "block";
-        pictureUrl.src = profile.pictureUrl;
-      }
-      async function main() {
-        await liff.init({ liffId: "1657099044-yKDkw7xX" });
-        if (liff.isInClient()) {
-          getUserProfile();
-        } else {
-          if (liff.isLoggedIn()) {
-            getUserProfile();
-            document.getElementById("btnLogOut").style.display = "block";
-          } else {
-            logIn();
-          }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>REGISTER LIFF</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<div class="container">
+
+
+  <h1>REGISTER LIFF</h1>
+  <img id="pictureUrl" height="50" width="50" />
+  <button onclick="logOut()" id="btnLogOut" type="button" class="btn btn-danger">LOGOUT</button>
+  <!-------------------------------- form --------------------------------->
+  <form method="post" action="https://sheetdb.io/api/v1/udaqidubl8hb3" id="sheetdb-form">
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Email address</label>
+      <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <input name="password" type="password" class="form-control" id="exampleInputPassword1">
+    </div>
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+<!-----------------------------javascript ------------------------------->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.10.3/qs.js"></script>
+<!-----------------------------LINE LIFF ------------------------------->
+<script>
+  const pictureUrl = document.getElementById("pictureUrl");
+  function logOut() {
+    liff.logout();
+    window.location.reload();
+  }
+  function logIn() {
+    liff.login({ redirectUri: window.location.href });
+  }
+  async function getUserProfile() {
+    const profile = await liff.getProfile();
+    axios.get("https://sheetdb.io/api/v1/3awnhw9icpyqx").then((res) => {
+      const dataform = res.data;
+      let match = 0;
+      for (let i = 0; i < dataform.length; i += 1) {
+        if (profile.userId == dataform[i].userId) {
+          match += 1
         }
       }
-      main();
-      var form = document.getElementById('sheetdb-form');
-        form.addEventListener("submit", e => {
-          e.preventDefault();
-          fetch(form.action, {
-              method : "POST",
-              body: new FormData(document.getElementById("sheetdb-form")),
-          }).then(
-              response => response.json()
-          ).then((html) => {
-            // you can put any JS code here
-            window.location.reload();
-
+      if (match == 0) {
+        axios.post("https://sheetdb.io/api/v1/3awnhw9icpyqx", {
+          userId: profile.userId,
+          displayName: profile.displayName,
+          pictureUrl: profile.pictureUrl,
+          statusMessage: profile.statusMessage,
+        })
+          .then((result) => {
+            console.log(result);
+          })
+          .catch((err) => {
+            console.error(err);
           });
-        });
-     
-    </script>
-  </body>
+      }
+    });
+
+    pictureUrl.style.display = "block";
+    pictureUrl.src = profile.pictureUrl;
+  }
+  async function main() {
+    await liff.init({ liffId: "1657099044-yKDkw7xX" });
+    if (liff.isInClient()) {
+      getUserProfile();
+    } else {
+      if (liff.isLoggedIn()) {
+        getUserProfile();
+        document.getElementById("btnLogOut").style.display = "block";
+      } else {
+        logIn();
+      }
+    }
+  }
+  main();
+
+
+  var form = document.getElementById('sheetdb-form');
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    var data = new FormData(document.getElementById("sheetdb-form"))
+    fetch(form.action, {
+      method: "POST",
+      body: data,
+    }).then(() => {}).then((html) => {
+      // you can put any JS code here
+      axios.get("https://sheetdb.io/api/v1/udaqidubl8hb3").then(res=>{
+        const dataform = res.data;
+        let i = dataform.length
+        let data = dataform[i-1]
+        console.log(data)
+        axios.get(`https://script.google.com/macros/s/AKfycbwNvf53f3KXKRa7FeBSJMh1ljU50jyJElAXmrjjJ0E/dev?message="${JSON.stringify(data)}"`).then()
+      })
+    });
+
+  });
+        // notify
+
+
+
+</script>
+</body>
+
 </html>
