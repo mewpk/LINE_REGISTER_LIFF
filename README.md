@@ -20,6 +20,8 @@ https://axios-http.com/
 
 https://www.smartgb.com/free_encrypthtml.php
 
+https://www.webtoolhub.com/tn561359-html-encrypter.aspx
+
 <h2>JavaScript Obfuscator Tool</h2>
 
 https://obfuscator.io/
