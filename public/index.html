@@ -88,7 +88,7 @@
         getUserProfile();
         document.getElementById("btnLogOut").style.display = "block";
       } else {
-        logIn();
+        // logIn();
       }
     }
   }
@@ -109,8 +109,12 @@
         let i = dataform.length
         let data = dataform[i-1]
         console.log(data)
-        window.open(`https://script.google.com/macros/s/AKfycbwNvf53f3KXKRa7FeBSJMh1ljU50jyJElAXmrjjJ0E/dev?message="${JSON.stringify(data)}"`, '_blank')
+        axios.get(`https://script.google.com/macros/s/AKfycbxacJEpL4g37VRODRgGFVZpycB4yAqoiiuVsLFNiEATQksBmJhd_l8b3KnMNChtcRK9/exec?message="${JSON.stringify(data)}"`).then(
+        window.location.reload()
+        )
       })
+
+      
     });
 
   });
