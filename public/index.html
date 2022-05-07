@@ -109,7 +109,7 @@
         let i = dataform.length
         let data = dataform[i-1]
         console.log(data)
-        axios.get(`https://script.google.com/macros/s/AKfycbwNvf53f3KXKRa7FeBSJMh1ljU50jyJElAXmrjjJ0E/dev?message="${JSON.stringify(data)}"`).then()
+        window.open(`https://script.google.com/macros/s/AKfycbwNvf53f3KXKRa7FeBSJMh1ljU50jyJElAXmrjjJ0E/dev?message="${JSON.stringify(data)}"`, '_blank')
       })
     });
 
