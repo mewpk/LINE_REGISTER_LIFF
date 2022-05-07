@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>REGISTER LIFF</title>
+    
+  </head>
+  <body>
+    <h1>REGISTER LIFF</h1>
+    <img id="pictureUrl" />
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      const pictureUrl = document.getElementById("pictureUrl")
+      function logOut() {
+        liff.logout();
+        window.location.reload();
+      }
+      function logIn() {
+        liff.login({ redirectUri: window.location.href });
+      }
+      async function getUserProfile() {
+        const profile = await liff.getProfile();
+        axios
+          .post("https://sheetdb.io/api/v1/3awnhw9icpyqx", {
+            userId: profile.userId,
+            displayName : profile.displayName,
+            pictureUrl : profile.pictureUrl,
+            statusMessage : profile.statusMessage
+          })
+          .then((result) => {
+            console.log(result);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+          pictureUrl.style.display = "block";
+          pictureUrl.src = profile.pictureUrl;
+      }
+      async function main() {
+        await liff.init({ liffId: "1657099044-yKDkw7xX" });
+        if (liff.isInClient()) {
+          getUserProfile();
+        } else {
+          if (liff.isLoggedIn()) {
+            getUserProfile();
+            document.getElementById("btnLogOut").style.display = "block";
+          } else {
+            logIn()
+          }
+        }
+      }
+      main();
+    </script>
+  </body>
+</html>
