@@ -12,7 +12,7 @@
   
     <h1>REGISTER LIFF</h1>
     <img id="pictureUrl" height="50" width="50"/>
-    <button onclick="logout()" id="btnLogOut" type="button" class="btn btn-danger">LOGOUT</button>
+    <button onclick="logOut()" id="btnLogOut" type="button" class="btn btn-danger">LOGOUT</button>
     <!-------------------------------- form --------------------------------->
     <form method="post" action="https://sheetdb.io/api/v1/udaqidubl8hb3" id="sheetdb-form">
       <div class="mb-3">
@@ -49,9 +49,15 @@
         const profile = await liff.getProfile();
         axios.get("https://sheetdb.io/api/v1/3awnhw9icpyqx").then((res) => {
           const dataform = res.data;
-          if (profile.userId != dataform.userId) {
-            axios
-              .post("https://sheetdb.io/api/v1/3awnhw9icpyqx", {
+          let match=0;
+          for(let i=0 ; i < dataform.length; i+=1){
+            if(profile.userId == dataform[i].userId){
+                console.log(dataform[i])
+                match += 1
+            }
+          }
+          if(match == 0){
+            axios.post("https://sheetdb.io/api/v1/3awnhw9icpyqx", {
                 userId: profile.userId,
                 displayName: profile.displayName,
                 pictureUrl: profile.pictureUrl,
@@ -63,10 +69,8 @@
               .catch((err) => {
                 console.error(err);
               });
-          } else {
-            console.log("It's not frist time");
           }
-        });
+        } );
 
         pictureUrl.style.display = "block";
         pictureUrl.src = profile.pictureUrl;
